@@ -1,0 +1,227 @@
+  <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>My App</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7.ios.min.css">
+    <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+    <!-- Path to your custom app styles-->
+    <!-- <link rel="stylesheet" href="css/my-app.css"> -->
+  </head>
+  <body>
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+      <div class="content-block">
+        <p>Left panel content goes here</p>
+      </div>
+    </div>
+    <!-- Right panel with cover effect-->
+    <div class="panel panel-right panel-cover">
+      <div class="content-block">
+        <p>Right panel content goes here</p>
+      </div>
+    </div>
+    <!-- Views-->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main">
+        <!-- Top Navbar-->
+         <div class="navbar">
+          <div class="navbar-inner">
+            <!-- We have home navbar without left link-->
+            <div class="center sliding">Bluecherry</div>
+          </div>
+        </div>
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+          <!-- Page, data-page contains page name-->
+          <div data-page="index" class="page">
+            <!-- Scrollable page content-->
+            <div class="page-content">
+              <div>
+                <center>
+                  <img src="img/logo.png" style="width: 30%">
+                  <h3>Login</h3>
+                </center>
+              </div>
+                <div class="list-block inset">
+                  <form  id="form-login">
+                    <ul>
+                      <li>
+                        <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-input">
+                              <input type="email" placeholder="E-mail" name  ="emaii-login">
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="item-content">
+                          <div class="item-inner">
+                            <div class="item-input">
+                              <input type="password" placeholder="Password" name="password-login">
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </form>
+                </div>
+                <div class="content-block">
+                  <div class="row">
+                    <div class="col-50"><a href="#" class="button button-big button-round btn-login active">Login</a></div>
+                    <div class="col-50"><a href="#" class="button button-big button-round btn-register" >Register</a></div><br><br><br>
+                    <div class="col-100"><a href="#" onclick="fb_login()" class="button button-big button-round btn-login-fb" onclick="fb_login()">Login with facebook</a></div>
+                  </div>
+                  <div id="status"></div>
+                </div>
+            </div>
+
+            <!-- this register template -->
+            <script type="text/template" id="newPageContent">
+                <div class="navbar">
+                  <div class="page" data-page="my-page">
+
+                   <div class="page-content">
+                      <div>
+                        <center>
+                          <img src="img/logo.png" style="width: 30%">
+                          <h3>Register</h3>
+                        </center>
+                      </div>
+                      <div class="list-block inset">
+                         <form  id="form-register">
+                            <ul>
+                              <li>
+                                <div class="item-content">
+                                  <div class="item-inner">
+                                    <div class="item-input">
+                                      <input type="email" placeholder="E-mail" name  ="emaii-login">
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="item-content">
+                                  <div class="item-inner">
+                                    <div class="item-input">
+                                      <input type="text" placeholder="Name" name="name-login">
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="item-content">
+                                  <div class="item-inner">
+                                    <div class="item-input">
+                                      <input type="number" placeholder="Phone" name="phone-login">
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="item-content">
+                                  <div class="item-inner">
+                                    <div class="item-input">
+                                      <input type="password" placeholder="Password" name="password-login">
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </form>
+                        </div>
+                        <div class="content-block">
+                          <div class="row">
+                            <div class="col-50"><a href="#" class="button button-big button-round btn-login back link">Login</a></div><br><br>
+                            <div class="col-50"><a href="#" class="button button-big button-round btn-register active" >Register</a></div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </script>
+            <!-- end register template -->
+            <div id="status"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- this login facebook -->
+<script>
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    if (response.status === 'connected') {
+      testAPI();
+    } else {
+      alert("login plase");
+    }
+  }
+  function fb_login() {
+      FB.login(function(response){
+        if (response.status === 'connected') {
+          testAPI()
+        }
+      })
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '464882357240718',
+      cookie     : true,  // enable cookies to allow the server to access
+                          // the session
+      xfbml      : true,  // parse social plugins on this page
+      version    : 'v2.8' // use graph api version 2.8
+    });
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+        mainView.router.loadPage('home.html');
+    });
+  }
+</script>
+<!-- end -->
+
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/my-app.js"></script>
+    <script type="text/javascript" src="bootstrap/bootstrap.js"></script>
+  </body>
+</html>
